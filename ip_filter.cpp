@@ -8,7 +8,7 @@
 
 #include "function.h"
 
-constexpr auto file_name = "ip_filter.tsv";
+const std::string file_name = "../ip_filter.tsv";
 
 std::ifstream open_file() {
     std::ifstream file(file_name);
@@ -36,11 +36,13 @@ int main(int, char **) {
             ip_pool.push_back(split(v.at(0), '.'));
         }
 
-    } catch (const std::exception &e) {
-        std::cerr << e.what() << std::endl;
+    ip_pool_int = ip_str_int(ip_pool);
+
+    } catch (const std::vector<std::string> &e) {
+        std::cerr << "Parsing error!!!" << std::endl;
+        std::cerr << "IP: " << e << " not be parse" << std::endl;
     }
 
-    ip_pool_int = ip_str_int(ip_pool);
     std::sort(ip_pool_int.begin(), ip_pool_int.end(), std::greater<std::vector<int>>());
 
     print_ip(ip_pool_int);

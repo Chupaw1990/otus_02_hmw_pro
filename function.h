@@ -39,7 +39,16 @@ vector_ip_int ip_str_int(std::vector<std::vector<std::string>> &ip_pool_str) {
 
     for (vector_ip_str i : ip_pool_str) {
         ip_int.clear();
+
+        if (i.size() > 4){
+            std::cout << i.size() << std::endl;
+            throw(i);
+        }
         for (std::string j : i) {
+            if((std::stoi(j) < 0) || (std::stoi(j) > 255)){
+                throw(i);
+            }
+
             ip_int.push_back(std::stoi(j));
         }
         ip_pool_int.push_back(ip_int);
@@ -58,6 +67,19 @@ std::ostream &operator<<(std::ostream &os, std::vector<int> ip) {
         ip_part++;
     }
     return os << str << std::endl;
+}
+
+std::ostream &operator<<(std::ostream &os, std::vector<std::string> ip) {
+    std::string str = "";
+    std::vector<std::string>::const_iterator ip_part = ip.cbegin();
+    for (std::string i : ip) {
+        str += i;
+        if (ip_part != ip.cend() - 1) {
+            str += '.';
+        }
+        ip_part++;
+    }
+    return os << str;
 }
 
 void print_ip(vector_ip_int &ip_pool_int) {

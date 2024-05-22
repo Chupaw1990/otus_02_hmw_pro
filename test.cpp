@@ -29,3 +29,17 @@ TEST(Function, split_test) {
     output_vec = split(input_str, splitter);
     ASSERT_EQ(output_vec.size(), 3);
 }
+
+TEST(Function, ip_str_int) {
+    std::vector<std::vector<std::string>> str_ip_pool = {   {"255", "255", "255", "0"},
+                                                            {"192", "168", "0", "1"},
+                                                            {"1", "2", "3", "4"}};
+
+    std::vector<std::vector<int>> int_ip_pool =         {   {255, 255, 255, 0},
+                                                            {192, 168, 0, 1},
+                                                            {1, 2, 3, 4}};
+    std::vector<std::vector<int>> result;
+
+    result = ip_str_int(str_ip_pool);
+    ASSERT_EQ(result, int_ip_pool);
+}
